@@ -82,3 +82,18 @@ document.addEventListener("DOMContentLoaded", function() {
         })
         .catch(error => console.error("Ошибка загрузки героев:", error));
 });
+document.addEventListener("DOMContentLoaded", function() {
+    if (document.getElementById("events-list")) {
+        fetch("data/events.json")
+            .then(response => response.json())
+            .then(data => {
+                let container = document.getElementById("events-list");
+                data.events.forEach(event => {
+                    let eventElement = document.createElement("div");
+                    eventElement.innerHTML = `<h3>${event.title}</h3><p>${event.date}</p><p>${event.description}</p>`;
+                    container.appendChild(eventElement);
+                });
+            })
+            .catch(error => console.error("Ошибка загрузки событий:", error));
+    }
+});
