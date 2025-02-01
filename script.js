@@ -24,3 +24,29 @@ document.addEventListener("DOMContentLoaded", function() {
         })
         .catch(error => console.error("Ошибка загрузки гайдов:", error));
 });
+document.addEventListener("DOMContentLoaded", function() {
+    fetch("data/heroes.json")
+        .then(response => response.json())
+        .then(data => {
+            let searchInput = document.getElementById("search");
+            let heroesList = document.getElementById("heroes-list");
+
+            function renderHeroes(filter = "") {
+                heroesList.innerHTML = "";
+                data.heroes
+                    .filter(hero => hero.name.toLowerCase().includes(filter.toLowerCase()))
+                    .forEach(hero => {
+                        let heroElement = document.createElement("p");
+                        heroElement.textContent = `${hero.name} - ${hero.role}`;
+                        heroesList.appendChild(heroElement);
+                    });
+            }
+
+            searchInput.addEventListener("input", () => {
+                renderHeroes(searchInput.value);
+            });
+
+            renderHeroes();
+        })
+        .catch(error => console.error("Ошибка загрузки героев:", error));
+});
