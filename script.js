@@ -50,3 +50,35 @@ document.addEventListener("DOMContentLoaded", function() {
         })
         .catch(error => console.error("Ошибка загрузки героев:", error));
 });
+document.addEventListener("DOMContentLoaded", function() {
+    fetch("data/heroes.json")
+        .then(response => response.json())
+        .then(data => {
+            let searchInput = document.getElementById("search");
+            let roleFilter = document.getElementById("filter-role");
+            let heroesList = document.getElementById("heroes-list");
+
+            function renderHeroes(filterName = "", filterRole = "") {
+                heroesList.innerHTML = "";
+                data.heroes
+                    .filter(hero => hero.name.toLowerCase().includes(filterName.toLowerCase()))
+                    .filter(hero => filterRole === "" || hero.role === filterRole)
+                    .forEach(hero => {
+                        let heroElement = document.createElement("p");
+                        heroElement.textContent = `${hero.name} - ${hero.role}`;
+                        heroesList.appendChild(heroElement);
+                    });
+            }
+
+            searchInput.addEventListener("input", () => {
+                renderHeroes(searchInput.value, roleFilter.value);
+            });
+
+            roleFilter.addEventListener("change", () => {
+                renderHeroes(searchInput.value, roleFilter.value);
+            });
+
+            renderHeroes();
+        })
+        .catch(error => console.error("Ошибка загрузки героев:", error));
+});
