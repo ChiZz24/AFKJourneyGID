@@ -97,3 +97,30 @@ document.addEventListener("DOMContentLoaded", function() {
             .catch(error => console.error("Ошибка загрузки событий:", error));
     }
 });
+const firebaseConfig = {
+    apiKey: "your-api-key",
+    authDomain: "your-auth-domain",
+    projectId: "your-project-id",
+    storageBucket: "your-storage-bucket",
+    messagingSenderId: "your-messaging-sender-id",
+    appId: "1"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+
+function register() {
+    let email = document.getElementById("email").value;
+    let password = document.getElementById("password").value;
+    auth.createUserWithEmailAndPassword(email, password)
+        .then(() => document.getElementById("message").innerText = "Регистрация успешна!")
+        .catch(error => document.getElementById("message").innerText = error.message);
+}
+
+function login() {
+    let email = document.getElementById("email").value;
+    let password = document.getElementById("password").value;
+    auth.signInWithEmailAndPassword(email, password)
+        .then(() => document.getElementById("message").innerText = "Вход выполнен!")
+        .catch(error => document.getElementById("message").innerText = error.message);
+}
