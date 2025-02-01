@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карта AFK Journey</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Интерактивная карта AFK Journey</h1>
+        <nav>
+            <a href="index.html">Главная</a>
+            <a href="map.html">Карта</a>
+            <a href="heroes.html">Герои</a>
+            <a href="events.html">События</a>
+        </nav>
+    </header>
+    <main>
+        <div id="map" style="width: 100%; height: 500px;"></div>
+    </main>
+    <script>
+        var map = L.map('map').setView([0, 0], 2);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap'
+        }).addTo(map);
+
+        // Добавляем маркеры (пример)
+        L.marker([51.505, -0.09]).addTo(map)
+            .bindPopup("Пример точки на карте")
+            .openPopup();
+    </script>
+</body>
+</html>
